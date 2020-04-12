@@ -11,6 +11,7 @@ const Container = styled.div`
   background: url(${BackgroundImage}) no-repeat center center fixed;
   text-align: center;
   padding-top: 1em;
+  font-family: sans-serif;
 `;
 
 const App = () => {

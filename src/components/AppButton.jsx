@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const IconText = styled.p`
+color: white;
 margin-block-start: 0;
 margin-block-end: 0;
 `;

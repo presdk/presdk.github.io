@@ -9,10 +9,11 @@ import WorldIcon from "../assets/icon-world.png";
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   > div {
+      margin-left: 1em;
       margin-right: 1em;
-      margin-bottom: 1em;
+      margin-bottom: 2em;
   }
 `;
 
