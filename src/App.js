@@ -4,18 +4,20 @@ import "./App.css";
 import PicturePostPage from "./pages/PicturePostPage";
 import styled from "styled-components";
 import HalfWidthPage from "./containers/HalfWidthPage";
-import Window from "./components/Window";
+import AppButtonSection from "./components/AppButtonSection";
+import BackgroundImage from "./assets/bg-clouds.jpg";
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  background: url(${BackgroundImage}) no-repeat center center fixed;
   text-align: center;
+  padding-top: 1em;
 `;
 
 const App = () => {
   return (
     <Container>
       <HalfWidthPage>
+        <AppButtonSection/>
         <PicturePostPage />
       </HalfWidthPage>
     </Container>
