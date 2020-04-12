@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import { GetBlogPosts } from "../api/TumblrApi"
+import { GetBlogPosts } from "../api/TumblrApi";
+import Window from "../components/Window";
 
 const Image = styled.img`
   width: 100%;
@@ -25,12 +26,16 @@ const PicturePostPage = ({ posts }) => {
     setPageCount(pageCount + 1);
   };
 
-  return blogPosts ? (
+  return blogPosts.length > 0 ? (
     <>
       {blogPosts.map((post) => {
         const firstPhoto = post.photos[0].alt_sizes[0];
 
-        return <Image src={firstPhoto.url} key={post.id} />;
+        return (
+          <Window style={{ "margin-bottom": "10px" }}>
+            <Image src={firstPhoto.url} key={post.id} />
+          </Window>
+        );
       })}
       <button
         onClick={() => {
