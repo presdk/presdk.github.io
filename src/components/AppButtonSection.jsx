@@ -10,16 +10,17 @@ import WorldIcon from "../assets/icon-world.png";
 const Row = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
   > div {
       margin-left: 1em;
       margin-right: 1em;
-      margin-bottom: 2em;
   }
 `;
 
 const AppButtonSection = (props) => {
   return (
-    <section>
+    <section {...props} style={{'margin': '0 auto'}}>
       <Row>
         <AppButton text="Blog" iconSrc={NotepadIcon} />
         <AppButton text="Outside" iconSrc={WorldIcon}/>

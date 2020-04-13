@@ -4,10 +4,10 @@ import { GetBlogPosts } from "../api/TumblrApi";
 import Window from "../components/Window";
 
 const Image = styled.img`
-  width: 100%;
+  width: 300px;
 `;
 
-const PicturePostPage = ({ posts }) => {
+const PicturePostPage = () => {
   const NumPostsPerPage = 20;
   const [blogPosts, setBlogPosts] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -32,7 +32,7 @@ const PicturePostPage = ({ posts }) => {
         const firstPhoto = post.photos[0].alt_sizes[0];
 
         return (
-          <Window style={{ "margin-bottom": "10px" }}>
+          <Window style={{ marginBottom: 10}}>
             <Image src={firstPhoto.url} key={post.id} />
           </Window>
         );

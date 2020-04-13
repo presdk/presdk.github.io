@@ -8,7 +8,6 @@ const StyledWindow = styled.div`
   border-width: thin;
   border-color: white;
   box-shadow: 1px 1px 1px 1px grey;
-  max-width: 300px;
 `;
 
 const TopBar = styled.div`
