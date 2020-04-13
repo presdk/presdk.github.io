@@ -24,7 +24,7 @@ const Window = (props) => {
   return (
     <StyledWindow {...props}>
       <TopBar>
-        <img src={FolderIcon} />
+        <img src={FolderIcon} alt="folder icon" />
       </TopBar>
       {props.children}
     </StyledWindow>

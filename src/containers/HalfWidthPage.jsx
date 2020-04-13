@@ -6,8 +6,8 @@ const Page = styled.div`
   max-width: 500px;
 `;
 
-const HalfWidthPage = ({ children }) => {
-  return <Page>{children}</Page>;
+const HalfWidthPage = (props) => {
+  return <Page {...props}>{props.children}</Page>;
 };
 
 export default HalfWidthPage;

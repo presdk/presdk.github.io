@@ -1,29 +1,24 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import PicturePostPage from "./pages/PicturePostPage";
 import styled from "styled-components";
-import HalfWidthPage from "./containers/HalfWidthPage";
-import AppButtonSection from "./components/AppButtonSection";
-import BackgroundImage from "./assets/bg-clouds.jpg";
 import FixedFooter from "./components/FixedFooter";
+import Theme from "./Theme";
+import MainHeader from "./components/MainHeader";
 
 const Container = styled.div`
-  background: url(${BackgroundImage}) no-repeat center center fixed;
   text-align: center;
-  font-family: "Noto Serif JP", serif;
-  font-size: 0.8em;
-  color: white;
+  font-family: "Viga", sans-serif;
+  font-size: 1em;
+  color: ${Theme.Primary};
 `;
 
 const App = () => {
   return (
     <Container>
-      <HalfWidthPage>
-        <AppButtonSection />
-        <PicturePostPage />
-        <FixedFooter />
-      </HalfWidthPage>
+      <MainHeader style={{ height: "10em" }} />
+      <PicturePostPage style={{ paddingTop: "9em", paddingBottom: "3em"}} />
+      <FixedFooter style={{ height: "2em" }} />
     </Container>
   );
 };
