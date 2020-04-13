@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledMainHeader = styled.div`
+  z-index: ${props => props.hidden ? 0 : 9999};
   background-color: white;
   position: fixed;
   top: 0;
@@ -23,7 +24,9 @@ const StyledMainHeader = styled.div`
 const MainHeader = (props) => {
   return (
     <StyledMainHeader {...props}>
-      <div role="img" className="lg">🙊</div>
+      <div className="lg">
+        <span role="img">🙊</span>
+      </div>
       <div className="sm">DAOON</div>
     </StyledMainHeader>
   );

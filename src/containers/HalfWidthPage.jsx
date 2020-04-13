@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 const Page = styled.div`
   display: inline-block;
-  max-width: 500px;
+  width: 100vw;
+  max-width: 700px;
 `;
 
 const HalfWidthPage = (props) => {
