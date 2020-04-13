@@ -11,7 +11,7 @@ import FixedFooter from "./components/FixedFooter";
 const Container = styled.div`
   background: url(${BackgroundImage}) no-repeat center center fixed;
   text-align: center;
-  font-family: 'Noto Serif JP', serif;
+  font-family: "Noto Serif JP", serif;
   font-size: 0.8em;
   color: white;
 `;
