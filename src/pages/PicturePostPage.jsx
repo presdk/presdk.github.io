@@ -6,7 +6,7 @@ import Gallery from "react-grid-gallery";
 
 const isValidAspectRatio = (width, height) => {
   const aspectRatio = width / height;
-  return aspectRatio >= 1 && aspectRatio <= 1.8;
+  return aspectRatio >= 0.8;
 }
 
 const Image = styled.img`
