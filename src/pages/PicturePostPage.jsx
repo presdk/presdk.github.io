@@ -76,6 +76,7 @@ const PicturePostPage = (props) => {
       pageStart={0}
       loadMore={OnShowMorePosts}
       hasMore={hasMoreItems}
+      style={{overflow: 'hidden'}}
     >
       <Gallery
         images={images}
