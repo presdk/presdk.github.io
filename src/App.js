@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import PicturePostPage from "./pages/PicturePostPage";
 import styled from "styled-components";
@@ -6,6 +6,9 @@ import FixedFooter from "./components/FixedFooter";
 import Theme from "./Theme";
 import MainHeader from "./components/MainHeader";
 import HalfWidthPage from "./containers/HalfWidthPage";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./reducers";
 
 const Container = styled.div`
   text-align: center;
@@ -14,22 +17,22 @@ const Container = styled.div`
   color: ${Theme.Primary};
 `;
 
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 const App = () => {
-
-  const [isLightBoxOpen, setIsLightBoxOpen] = useState(false);
-
-  const onLightBoxStateChanged = (isOpen) => {
-    setIsLightBoxOpen(isOpen);
-  }
-
   return (
-    <Container>
-      <MainHeader style={{ height: "10em" }} hidden={isLightBoxOpen}/>
-      <HalfWidthPage style={{ paddingTop: "9em", paddingBottom: "3em" }}>
-        <PicturePostPage onLightBoxStateChanged={onLightBoxStateChanged} />
-      </HalfWidthPage>
-      <FixedFooter style={{ height: "2em" }} />
-    </Container>
+    <Provider store={store}>
+      <Container>
+        <MainHeader style={{ height: "10em" }} />
+        <HalfWidthPage style={{ paddingTop: "9em", paddingBottom: "3em" }}>
+          <PicturePostPage />
+        </HalfWidthPage>
+        <FixedFooter style={{ height: "2em" }} />
+      </Container>
+    </Provider>
   );
 };
 

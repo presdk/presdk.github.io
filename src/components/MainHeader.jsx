@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledMainHeader = styled.div`
-  z-index: ${props => props.hidden ? 0 : 9999};
+  z-index: 10;
   background-color: white;
   position: fixed;
   top: 0;

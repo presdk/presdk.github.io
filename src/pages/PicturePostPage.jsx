@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { GetBlogPosts } from "../api/TumblrApi";
 import InfiniteScroll from "react-infinite-scroller";
 import Gallery from "react-grid-gallery";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { failedToLoadPosts, startLoadingPosts, addBlogPosts } from "../actions";
 
 const isValidAspectRatio = (width, height) => {
   const aspectRatio = width / height;
@@ -20,34 +22,37 @@ const Image = styled.img`
 `;
 
 const PicturePostPage = (props) => {
-  const { onLightBoxStateChanged } = props;
-
   const NumPostsPerPage = 20;
-  const [blogPosts, setBlogPosts] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
-  const [hasMoreItems, setHasMoreItems] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const postsOffset = pageCount * NumPostsPerPage;
-    GetBlogPosts(NumPostsPerPage, postsOffset, (fetchedPosts) => {
-      if (fetchedPosts && fetchedPosts.length > 0) {
-        console.log(fetchedPosts);
-        setBlogPosts(blogPosts.concat(fetchedPosts));
-        setIsLoading(false);
+  const [isLoadingPosts, setIsLoadingPosts] = useState(false);
+  const blogPosts = useSelector(state => state.blogPosts.blogPosts, shallowEqual)
+  const hasMorePosts = useSelector(state => state.blogPosts.hasMorePosts);
+
+  const dispatch = useDispatch();
+  const showMorePosts = () => {
+    dispatch(startLoadingPosts());
+
+    GetBlogPosts(NumPostsPerPage, blogPosts.length, (retrievedPosts) => {
+      if (retrievedPosts && retrievedPosts.length > 0) {
+        dispatch(addBlogPosts(retrievedPosts));
+        setIsLoadingPosts(false);
       } else {
-        setHasMoreItems(false);
+        dispatch(failedToLoadPosts());
       }
     });
-  }, [pageCount]);
+  };
 
-  const OnShowMorePosts = () => {
-    if (isLoading) {
+  useEffect(() => {
+    OnShowMorePosts();
+  }, []);
+
+  const OnShowMorePosts = useCallback(() => {
+    if (isLoadingPosts) {
       return;
     }
-    setIsLoading(true);
-    setPageCount(pageCount + 1);
-  };
+    setIsLoadingPosts(true);
+    showMorePosts();
+  }, [isLoadingPosts]);
 
   if (blogPosts.length <= 0) {
     return <div>Loading...</div>;
@@ -75,15 +80,14 @@ const PicturePostPage = (props) => {
       {...props}
       pageStart={0}
       loadMore={OnShowMorePosts}
-      hasMore={hasMoreItems}
+      hasMore={hasMorePosts}
       style={{overflow: 'hidden'}}
     >
       <Gallery
         images={images}
         enableImageSelection={false}
-        lightboxWillOpen={() => onLightBoxStateChanged(true)}
-        lightboxWillClose={() => onLightBoxStateChanged(false)}
-        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps} />}
+        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps}
+        backdropClosesModal={true} />}
       />
     </InfiniteScroll>
   );
