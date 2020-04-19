@@ -86,8 +86,8 @@ const PicturePostPage = (props) => {
       <Gallery
         images={images}
         enableImageSelection={false}
-        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps}
-        backdropClosesModal={true} />}
+        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps}/>}
+        backdropClosesModal={true}
       />
     </InfiniteScroll>
   );
