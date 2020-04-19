@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import AvatarImage from "../assets/avatar.jpg";
 
 const StyledMainHeader = styled.div`
   z-index: 10;
@@ -11,23 +12,21 @@ const StyledMainHeader = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
 
-  .lg {
-    font-size: 2em;
-  }
-
-  .sm {
-    font-size: 1em;
-  }
+const CircleImage = styled.img`
+  clip-path: circle(50px at center);
+  width: 100px;
+  height: 100px;
 `;
 
 const MainHeader = (props) => {
   return (
     <StyledMainHeader {...props}>
-      <div className="lg">
-        <span role="img">🙊</span>
+      <div>
+        <CircleImage src={AvatarImage} />
       </div>
-      <div className="sm">DAOON</div>
+      <div>DAOON</div>
     </StyledMainHeader>
   );
 };
