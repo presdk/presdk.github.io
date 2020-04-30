@@ -2,18 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import AvatarImage from "../assets/avatar.jpg";
 
-const StyledMainHeader = styled.div`
-  z-index: 10;
-  background-color: white;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 const CircleImage = styled.img`
   clip-path: circle(50px at center);
   width: 100px;
@@ -22,12 +10,10 @@ const CircleImage = styled.img`
 
 const MainHeader = (props) => {
   return (
-    <StyledMainHeader {...props}>
-      <div>
+    <div {...props} className="text-center" style={{backgroundColor:"white"}}>
         <CircleImage src={AvatarImage} />
-      </div>
       <div>DAOON</div>
-    </StyledMainHeader>
+    </div>
   );
 };
 

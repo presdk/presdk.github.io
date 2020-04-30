@@ -9,10 +9,6 @@ const StyledFixedFooter = styled.footer`
   flex-direction: row;
   align-items: baseline;
   justify-content: left;
-  left: 0;
-  width: 100vw;
-  position: fixed;
-  bottom: 0;
   color: white;
   background-color: ${Theme.Primary};
   padding: 2px;
