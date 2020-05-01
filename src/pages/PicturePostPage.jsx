@@ -1,15 +1,19 @@
 import styled from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
-import { GetBlogPosts } from "../api/TumblrApi";
+import { GetPhotoPosts } from "../api/TumblrApi";
 import InfiniteScroll from "react-infinite-scroller";
 import Gallery from "react-grid-gallery";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { failedToLoadPosts, startLoadingPosts, addBlogPosts } from "../actions";
+import {
+  failedToLoadPosts,
+  startLoadingPosts,
+  addPosts,
+} from "../actions/posts";
 
 const isValidAspectRatio = (width, height) => {
   const aspectRatio = width / height;
   return aspectRatio >= 0.8;
-}
+};
 
 const Image = styled.img`
   max-width: 300px;
@@ -25,26 +29,29 @@ const PicturePostPage = (props) => {
   const NumPostsPerPage = 20;
 
   const [isLoadingPosts, setIsLoadingPosts] = useState(false);
-  const blogPosts = useSelector(state => state.blogPosts.blogPosts, shallowEqual)
-  const hasMorePosts = useSelector(state => state.blogPosts.hasMorePosts);
+  const photoPosts = useSelector(
+    (state) => state.photoPosts.posts,
+    shallowEqual
+  );
+  const hasMorePosts = useSelector((state) => state.photoPosts.hasMorePosts);
 
   const dispatch = useDispatch();
   const showMorePosts = () => {
-    dispatch(startLoadingPosts());
+    dispatch(startLoadingPosts("photo"));
 
-    GetBlogPosts(NumPostsPerPage, blogPosts.length, (retrievedPosts) => {
+    GetPhotoPosts(NumPostsPerPage, photoPosts.length, (retrievedPosts) => {
       if (retrievedPosts && retrievedPosts.length > 0) {
-        dispatch(addBlogPosts(retrievedPosts));
+        dispatch(addPosts("photo", retrievedPosts));
         setIsLoadingPosts(false);
       } else {
-        dispatch(failedToLoadPosts());
+        dispatch(failedToLoadPosts("photo"));
       }
     });
   };
 
   useEffect(() => {
     OnShowMorePosts();
-  }, []);
+  }, [photoPosts]);
 
   const OnShowMorePosts = useCallback(() => {
     if (isLoadingPosts) {
@@ -54,11 +61,11 @@ const PicturePostPage = (props) => {
     showMorePosts();
   }, [isLoadingPosts]);
 
-  if (blogPosts.length <= 0) {
+  if (photoPosts.length <= 0) {
     return <div>Loading...</div>;
   }
 
-  const images = blogPosts
+  const images = photoPosts
     .filter((post) => {
       const { width, height } = post.photos[0].alt_sizes[0];
       return isValidAspectRatio(width, height);
@@ -81,12 +88,12 @@ const PicturePostPage = (props) => {
       pageStart={0}
       loadMore={OnShowMorePosts}
       hasMore={hasMorePosts}
-      style={{overflow: 'hidden'}}
+      style={{ overflow: "hidden" }}
     >
       <Gallery
         images={images}
         enableImageSelection={false}
-        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps}/>}
+        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps} />}
         backdropClosesModal={true}
       />
     </InfiniteScroll>

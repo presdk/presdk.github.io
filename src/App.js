@@ -3,7 +3,6 @@ import "./App.css";
 import PicturePostPage from "./pages/PicturePostPage";
 import FixedFooter from "./components/FixedFooter";
 import MainHeader from "./components/MainHeader";
-import HalfWidthPage from "./containers/HalfWidthPage";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./reducers";

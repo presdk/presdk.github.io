@@ -11,13 +11,20 @@ const client = Tumblr.createClient({
 
 console.log(client);
 
-// Get photos from blog
-export const GetBlogPosts = (limit = 20, offset, callback) => {
+const GetPosts = (type, limit, offset, callback) => {
   client.blogPosts(
     BlogUrl,
-    { type: "photo", limit: limit, offset: offset },
+    { type: type, limit: limit, offset: offset },
     (err, response) => {
       callback(response.posts);
     }
   );
+};
+
+export const GetPhotoPosts = (limit = 20, offset, callback) => {
+  return GetPosts("photo", limit, offset, callback);
+};
+
+export const GetTextPosts = (limit = 20, offset, callback) => {
+  return GetPosts("text", limit, offset, callback);
 };
