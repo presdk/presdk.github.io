@@ -56,8 +56,14 @@ const BlogPage = (props) => {
       style={{ overflow: "hidden" }}
     >
       {textPosts.map((post) => {
-        const { body } = post;
-        return <div key={post.id}>{htmlToReactParser.parse(body)}</div>;
+        const { title, body } = post;
+        return (
+          <div key={post.id} className="mb-5">
+            <h4>{title}</h4>
+            {htmlToReactParser.parse(body)}
+            <hr />
+          </div>
+        );
       })}
     </InfiniteScroll>
   );
