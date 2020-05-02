@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
 import { GetPhotoPosts } from "../api/TumblrApi";
 import InfiniteScroll from "react-infinite-scroller";
-import Gallery from "react-grid-gallery";
+import Gallery from "react-photo-gallery";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   failedToLoadPosts,
@@ -15,15 +15,13 @@ const isValidAspectRatio = (width, height) => {
   return aspectRatio >= 0.8;
 };
 
-const Image = styled.img`
-  max-width: 300px;
-  padding: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+function getColumns(containerWidth) {
+  let columns = 1;
+  if (containerWidth >= 500) {
+    columns = 2;
   }
-`;
+  return columns;
+}
 
 const PicturePostPage = (props) => {
   const NumPostsPerPage = 20;
@@ -79,6 +77,8 @@ const PicturePostPage = (props) => {
         thumbnail: highResPhoto.url,
         thumbnailWidth: highResPhoto.width,
         thumbnailHeight: highResPhoto.height,
+        width: highResPhoto.width,
+        height: highResPhoto.height,
       };
     });
 
@@ -91,10 +91,10 @@ const PicturePostPage = (props) => {
       style={{ overflow: "hidden" }}
     >
       <Gallery
-        images={images}
-        enableImageSelection={false}
-        thumbnailImageComponent={({ imageProps }) => <Image {...imageProps} />}
-        backdropClosesModal={true}
+        photos={images}
+        direction="column"
+        margin={4}
+        columns={getColumns}
       />
     </InfiniteScroll>
   );

@@ -40,22 +40,20 @@ const App = () => {
           </Row>
           <Row>
             <Col className="d-md-block d-none col-md-3 mx-auto text-center">
-              <Fade>
-                <div className="sticky-top">
-                  <div className="mb-3">
-                    <MainHeader />
-                  </div>
-                  <ListGroup variant="flush">
-                    <ListGroup.Item>
-                      <Link to="/gallery">Gallery</Link>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <Link as="li" to="/blog">
-                        Blog
-                      </Link>
-                    </ListGroup.Item>
-                  </ListGroup>
+              <Fade className="sticky-top">
+                <div className="mb-3">
+                  <MainHeader />
                 </div>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Link to="/gallery">Gallery</Link>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Link as="li" to="/blog">
+                      Blog
+                    </Link>
+                  </ListGroup.Item>
+                </ListGroup>
               </Fade>
             </Col>
             <Col xs={12} md={9}>
