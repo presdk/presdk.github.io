@@ -16,6 +16,7 @@ import {
   Link,
 } from "react-router-dom";
 import BlogPage from "./pages/BlogPage";
+import Fade from "./animations/Fade";
 
 const DefaultStyle = {
   fontFamily: "Viga, sans-serif",
@@ -39,19 +40,23 @@ const App = () => {
           </Row>
           <Row>
             <Col className="d-md-block d-none col-md-3 mx-auto text-center">
-              <div className="sticky-top">
-                <div className="mb-3">
-                  <MainHeader />
+              <Fade>
+                <div className="sticky-top">
+                  <div className="mb-3">
+                    <MainHeader />
+                  </div>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <Link to="/gallery">Gallery</Link>
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <Link as="li" to="/blog">
+                        Blog
+                      </Link>
+                    </ListGroup.Item>
+                  </ListGroup>
                 </div>
-                <ListGroup variant="flush">
-                  <ListGroup.Item>
-                    <Link to="/gallery">Gallery</Link>
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <Link as="li" to="/blog">Blog</Link>
-                  </ListGroup.Item>
-                </ListGroup>
-              </div>
+              </Fade>
             </Col>
             <Col xs={12} md={9}>
               <Switch>
