@@ -19,7 +19,7 @@ import BlogPage from "./pages/BlogPage";
 import Fade from "./animations/Fade";
 
 const DefaultStyle = {
-  fontFamily: "Viga, sans-serif",
+  fontFamily: "Roboto', sans-serif",
   fontSize: "1em",
 };
 
