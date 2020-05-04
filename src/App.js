@@ -6,7 +6,7 @@ import MainHeader from "./components/MainHeader";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./reducers";
-import { Container, Row, Col, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Navbar, Nav } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   BrowserRouter as Router,
@@ -31,6 +31,11 @@ const StyledApp = styled.div`
   h5 {
     font-family: "Noto Sans JP", sans-serif;
   }
+
+  // Hack to set colors on the bootstrap links
+  .navbar a, .list-group a{
+    color: #133c55;
+  }
 `;
 
 const store = createStore(
@@ -38,36 +43,51 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
+const galleryLink = "/gallery";
+const galleryLinkText = <span>🖼️ Gallery</span>;
+
+const blogLink = "/blog";
+const blogLinkText = <span>📒 Blog</span>;
+
 const App = () => {
   return (
     <Router>
       <Provider store={store}>
         <StyledApp>
-          <Container className="mt-4 px-4">
+          <Container fluid>
             <Row className="sticky-top">
-              <Col className="d-xs-block d-sm-none col-xs-12 mb-3">
-                <MainHeader />
+              <Col className="d-xs-block d-sm-none col-xs-12">
+                <Navbar variant="light" bg="white" sticky="top">
+                  <Navbar.Brand href="#">Daoon</Navbar.Brand>
+                  <Link to={galleryLink}>
+                    <Nav.Link as="div">{galleryLinkText}</Nav.Link>
+                  </Link>
+                  <Link to={blogLink}>
+                    <Nav.Link as="div">{blogLinkText}</Nav.Link>
+                  </Link>
+                </Navbar>
               </Col>
             </Row>
             <Row>
-              <Col className="d-md-block d-none col-md-3 mx-auto text-center">
+              <Col
+                md={{ span: 2, offset: 2 }}
+                className="text-center d-none d-md-block"
+              >
                 <Fade className="sticky-top">
-                  <div className="mb-3">
-                    <MainHeader />
-                  </div>
+                  <MainHeader />
                   <ListGroup variant="flush">
                     <ListGroup.Item>
-                      <Link to="/gallery">Gallery</Link>
+                      <Link to={galleryLink}>{galleryLinkText}</Link>
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <Link as="li" to="/blog">
-                        Blog
+                      <Link as="li" to={blogLink}>
+                        {blogLinkText}
                       </Link>
                     </ListGroup.Item>
                   </ListGroup>
                 </Fade>
               </Col>
-              <Col xs={12} md={9}>
+              <Col xs={12} md={{ span: 6 }}>
                 <Switch>
                   <Route
                     exact

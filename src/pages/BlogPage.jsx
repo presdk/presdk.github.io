@@ -7,8 +7,33 @@ import {
   startLoadingPosts,
   addPosts,
 } from "../actions/posts";
+import styled from "styled-components";
 const HtmlToReactParser = require("html-to-react").Parser;
 const htmlToReactParser = new HtmlToReactParser();
+
+const PostHeaderSection = (props) => {
+  const HorizontalDivider = styled.hr`
+    border: 1px solid #000;
+  `;
+
+  const PostHeader = styled.h4`
+    color: #133c55;
+  `;
+
+  return (
+    <>
+      <HorizontalDivider />
+      <PostHeader>{props.children}</PostHeader>
+      <HorizontalDivider />
+    </>
+  );
+};
+
+const BlogBody = styled.div`
+  a {
+    color: #6240b8;
+  }
+`;
 
 const BlogPage = (props) => {
   const NumPostsPerPage = 20;
@@ -58,10 +83,9 @@ const BlogPage = (props) => {
       {textPosts.map((post) => {
         const { title, body } = post;
         return (
-          <div key={post.id} className="mb-5">
-            <h4>{title}</h4>
-            {htmlToReactParser.parse(body)}
-            <hr />
+          <div key={post.id} className="mt-5">
+            {title && <PostHeaderSection>{title}</PostHeaderSection>}
+            <BlogBody>{htmlToReactParser.parse(body)}</BlogBody>
           </div>
         );
       })}

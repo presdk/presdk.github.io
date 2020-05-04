@@ -10,9 +10,9 @@ const CircleImage = styled.img`
 
 const MainHeader = (props) => {
   return (
-    <div {...props} className="text-center" style={{backgroundColor:"white"}}>
+    <div {...props} className="text-center pt-3" style={{backgroundColor:"white"}}>
         <CircleImage src={AvatarImage} />
-      <div>DAOON</div>
+      <p className="mt-3 pb-3" style={{fontSize: "1.25rem"}}>DAOON</p>
     </div>
   );
 };

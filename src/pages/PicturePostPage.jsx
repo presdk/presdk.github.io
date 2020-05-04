@@ -93,7 +93,7 @@ const PicturePostPage = (props) => {
       <Gallery
         photos={images}
         direction="column"
-        margin={4}
+        margin={6}
         columns={getColumns}
       />
     </InfiniteScroll>
