@@ -21,6 +21,7 @@ import styled from "styled-components";
 
 const StyledApp = styled.div`
   * {
+    color: black;
     font-family: "Roboto", sans-serif;
   }
 
@@ -32,9 +33,8 @@ const StyledApp = styled.div`
     font-family: "Noto Sans JP", sans-serif;
   }
 
-  // Hack to set colors on the bootstrap links
-  .navbar a, .list-group a{
-    color: #133c55;
+  a:hover {
+    text-decoration-line: none;
   }
 `;
 

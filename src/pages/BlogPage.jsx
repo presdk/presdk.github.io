@@ -16,14 +16,10 @@ const PostHeaderSection = (props) => {
     border: 1px solid #000;
   `;
 
-  const PostHeader = styled.h4`
-    color: #133c55;
-  `;
-
   return (
     <>
       <HorizontalDivider />
-      <PostHeader>{props.children}</PostHeader>
+      <h4>{props.children}</h4>
       <HorizontalDivider />
     </>
   );
@@ -32,6 +28,9 @@ const PostHeaderSection = (props) => {
 const BlogBody = styled.div`
   a {
     color: #6240b8;
+  }
+  a:hover {
+    text-decoration-line: underline !important;
   }
 `;
 
@@ -83,7 +82,7 @@ const BlogPage = (props) => {
       {textPosts.map((post) => {
         const { title, body } = post;
         return (
-          <div key={post.id} className="mt-5">
+          <div key={post.id} className="mb-5">
             {title && <PostHeaderSection>{title}</PostHeaderSection>}
             <BlogBody>{htmlToReactParser.parse(body)}</BlogBody>
           </div>
