@@ -65,18 +65,15 @@ const PicturePostPage = (props) => {
 
   const images = photoPosts
     .filter((post) => {
-      const { width, height } = post.photos[0].alt_sizes[0];
+      const { width, height } = post.content[0].media[0];
       return isValidAspectRatio(width, height);
     })
     .map((post) => {
-      const highResPhoto = post.photos[0].alt_sizes[0];
+      const highResPhoto = post.content[0].media[0];
 
       return {
         src: highResPhoto.url,
-        key: post.id,
-        thumbnail: highResPhoto.url,
-        thumbnailWidth: highResPhoto.width,
-        thumbnailHeight: highResPhoto.height,
+        key: post.id_string,
         width: highResPhoto.width,
         height: highResPhoto.height,
       };
