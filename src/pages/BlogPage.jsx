@@ -8,24 +8,30 @@ import {
   addPosts,
 } from "../actions/posts";
 import styled from "styled-components";
+import { Accordion } from "react-bootstrap";
 const HtmlToReactParser = require("html-to-react").Parser;
 const htmlToReactParser = new HtmlToReactParser();
 
-const PostHeaderSection = (props) => {
-  const HorizontalDivider = styled.hr`
+const StyledPostHeaderSection = styled.div`
+  hr {
     border: 1px solid #000;
-  `;
+  }
 
+  *:hover {
+    cursor: pointer;
+  }
+`;
+const PostHeaderSection = (props) => {
   return (
-    <>
-      <HorizontalDivider />
+    <StyledPostHeaderSection>
+      <hr />
       <h4>{props.children}</h4>
-      <HorizontalDivider />
-    </>
+      <hr />
+    </StyledPostHeaderSection>
   );
 };
 
-const BlogBody = styled.div`
+const StyledBlogPage = styled.div`
   a {
     color: #6240b8;
   }
@@ -72,23 +78,33 @@ const BlogPage = (props) => {
   }
 
   return (
-    <InfiniteScroll
-      {...props}
-      pageStart={0}
-      loadMore={OnShowMorePosts}
-      hasMore={hasMorePosts}
-      style={{ overflow: "hidden" }}
-    >
-      {textPosts.map((post) => {
-        const { title, body } = post;
-        return (
-          <div key={post.id} className="mb-5">
-            {title && <PostHeaderSection>{title}</PostHeaderSection>}
-            <BlogBody>{htmlToReactParser.parse(body)}</BlogBody>
-          </div>
-        );
-      })}
-    </InfiniteScroll>
+    <StyledBlogPage>
+      <InfiniteScroll
+        {...props}
+        pageStart={0}
+        loadMore={OnShowMorePosts}
+        hasMore={hasMorePosts}
+        style={{ overflow: "hidden" }}
+      >
+        <Accordion>
+          {textPosts.map((post) => {
+            const { title, body } = post;
+            return (
+              <div key={post.id}>
+                {title && (
+                  <Accordion.Toggle eventKey={post.id} as="div">
+                    <PostHeaderSection>{title}</PostHeaderSection>
+                  </Accordion.Toggle>
+                )}
+                <Accordion.Collapse eventKey={post.id} as="div">
+                  <div className="mb-5">{htmlToReactParser.parse(body)}</div>
+                </Accordion.Collapse>
+              </div>
+            );
+          })}
+        </Accordion>
+      </InfiniteScroll>
+    </StyledBlogPage>
   );
 };
 
