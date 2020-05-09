@@ -86,11 +86,11 @@ const BlogPage = (props) => {
         hasMore={hasMorePosts}
         style={{ overflow: "hidden" }}
       >
-        <Accordion>
-          {textPosts.map((post) => {
-            const { title, body } = post;
-            return (
-              <div key={post.id}>
+        {textPosts.map((post) => {
+          const { title, body } = post;
+          return (
+            <div key={post.id}>
+              <Accordion>
                 {title && (
                   <Accordion.Toggle eventKey={post.id} as="div">
                     <PostHeaderSection>{title}</PostHeaderSection>
@@ -99,10 +99,10 @@ const BlogPage = (props) => {
                 <Accordion.Collapse eventKey={post.id} as="div">
                   <div className="mb-5">{htmlToReactParser.parse(body)}</div>
                 </Accordion.Collapse>
-              </div>
-            );
-          })}
-        </Accordion>
+              </Accordion>
+            </div>
+          );
+        })}
       </InfiniteScroll>
     </StyledBlogPage>
   );
