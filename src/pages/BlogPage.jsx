@@ -17,16 +17,16 @@ const StyledPostHeaderSection = styled.div`
     border: 1px solid #000;
   }
 
-  *:hover {
+  :hover {
     cursor: pointer;
   }
+  text-transform: uppercase;
 `;
 const PostHeaderSection = (props) => {
   return (
     <StyledPostHeaderSection>
       <hr />
-      <h4>{props.children}</h4>
-      <hr />
+      {props.children}
     </StyledPostHeaderSection>
   );
 };
@@ -37,6 +37,10 @@ const StyledBlogPage = styled.div`
   }
   a:hover {
     text-decoration-line: underline !important;
+  }
+
+  .header:last-child {
+    border-bottom: 1px solid black;
   }
 `;
 
@@ -97,7 +101,7 @@ const BlogPage = (props) => {
                   </Accordion.Toggle>
                 )}
                 <Accordion.Collapse eventKey={post.id} as="div">
-                  <div className="mb-5">{htmlToReactParser.parse(body)}</div>
+                  <div className="mt-3 mb-3">{htmlToReactParser.parse(body)}</div>
                 </Accordion.Collapse>
               </Accordion>
             </div>

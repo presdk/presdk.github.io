@@ -9,8 +9,6 @@ const client = Tumblr.createClient({
   token_secret: "1Nztj0BBaUTLsI1W4WvB4GXj2GTJbLXKvLZhgDCsp4m66p3aVB",
 });
 
-console.log(client);
-
 export const GetPhotoPosts = (limit = 20, offset, callback) => {
   client.blogPosts(
     BlogUrl,
