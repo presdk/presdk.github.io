@@ -20,13 +20,12 @@ const StyledPostHeaderSection = styled.div`
   :hover {
     cursor: pointer;
   }
-  text-transform: uppercase;
 `;
 const PostHeaderSection = (props) => {
   return (
     <StyledPostHeaderSection>
-      <hr />
       {props.children}
+      <hr />
     </StyledPostHeaderSection>
   );
 };
@@ -38,11 +37,43 @@ const StyledBlogPage = styled.div`
   a:hover {
     text-decoration-line: underline !important;
   }
-
-  .header:last-child {
-    border-bottom: 1px solid black;
-  }
 `;
+
+const getEmojifiedTitle = (title) => {
+  if (!(title.includes('[') || title.includes(']'))) {
+    return title;
+  }
+
+  const splitIndex = title.indexOf(']');
+  if (splitIndex == -1) {
+    return title;
+  }
+
+  const emojiKey = title.substring(0, splitIndex + 1);
+  const titleText = title.substring(splitIndex + 1).trim();
+
+  console.log(emojiKey);
+  console.log(titleText);
+
+  let emoji = "";
+  switch (emojiKey) {
+    case "[Dev]":
+      emoji = "💾 Dev";
+      break;
+    case "[Invest]":
+      emoji = "📈 Invest";
+      break;
+    case "[Video editing]":
+      emoji = "📷 Editing";
+      break;
+    case "[Curious]":
+      emoji = "💭 Curious";
+      break;
+  }
+
+  return emoji.length > 0 ? 
+    `${emoji.toUpperCase()} - ${titleText}` : titleText;
+};
 
 const BlogPage = (props) => {
   const NumPostsPerPage = 20;
@@ -88,6 +119,7 @@ const BlogPage = (props) => {
         pageStart={0}
         loadMore={OnShowMorePosts}
         hasMore={hasMorePosts}
+        className="mt-3"
         style={{ overflow: "hidden" }}
       >
         {textPosts.map((post) => {
@@ -97,7 +129,7 @@ const BlogPage = (props) => {
               <Accordion>
                 {title && (
                   <Accordion.Toggle eventKey={post.id} as="div">
-                    <PostHeaderSection>{title}</PostHeaderSection>
+                    <PostHeaderSection>{getEmojifiedTitle(title)}</PostHeaderSection>
                   </Accordion.Toggle>
                 )}
                 <Accordion.Collapse eventKey={post.id} as="div">
