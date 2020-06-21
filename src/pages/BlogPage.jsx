@@ -52,9 +52,6 @@ const getEmojifiedTitle = (title) => {
   const emojiKey = title.substring(0, splitIndex + 1);
   const titleText = title.substring(splitIndex + 1).trim();
 
-  console.log(emojiKey);
-  console.log(titleText);
-
   let emoji = "";
   switch (emojiKey) {
     case "[Dev]":
