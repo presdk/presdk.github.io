@@ -10,11 +10,6 @@ import {
   addPosts,
 } from "../actions/posts";
 
-const isValidAspectRatio = (width, height) => {
-  const aspectRatio = width / height;
-  return aspectRatio >= 0.8;
-};
-
 function getColumns(containerWidth) {
   let columns = 1;
   if (containerWidth >= 500) {
@@ -64,10 +59,6 @@ const PicturePostPage = (props) => {
   }
 
   const images = photoPosts
-    .filter((post) => {
-      const { width, height } = post.content[0].media[0];
-      return isValidAspectRatio(width, height);
-    })
     .map((post) => {
       const highResPhoto = post.content[0].media[0];
 
