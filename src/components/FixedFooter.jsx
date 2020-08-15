@@ -9,8 +9,7 @@ const StyledFixedFooter = styled.footer`
   flex-direction: row;
   align-items: baseline;
   justify-content: left;
-  color: white;
-  background-color: ${Theme.Primary};
+  background-color: white;
   padding: 2px;
   > img,
   div {

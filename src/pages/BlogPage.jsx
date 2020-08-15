@@ -8,27 +8,9 @@ import {
   addPosts,
 } from "../actions/posts";
 import styled from "styled-components";
-import { Accordion } from "react-bootstrap";
+import { Accordion, Card } from "react-bootstrap";
 const HtmlToReactParser = require("html-to-react").Parser;
 const htmlToReactParser = new HtmlToReactParser();
-
-const StyledPostHeaderSection = styled.div`
-  hr {
-    border: 1px solid #000;
-  }
-
-  :hover {
-    cursor: pointer;
-  }
-`;
-const PostHeaderSection = (props) => {
-  return (
-    <StyledPostHeaderSection>
-      {props.children}
-      <hr />
-    </StyledPostHeaderSection>
-  );
-};
 
 const StyledBlogPage = styled.div`
   a {
@@ -68,7 +50,7 @@ const getEmojifiedTitle = (title) => {
       break;
   }
 
-  return emoji.length > 0 ? 
+  return emoji.length > 0 ?
     `${emoji.toUpperCase()} - ${titleText}` : titleText;
 };
 
@@ -119,19 +101,23 @@ const BlogPage = (props) => {
         className="mt-3"
         style={{ overflow: "hidden" }}
       >
-        {textPosts.map((post) => {
-          const { title, body } = post;
+        {textPosts.filter(post => post.title).map((post) => {
+          // Show posts with valid titles
+          const { id } = post;
+          const emojifiedTitle = getEmojifiedTitle(post.title);
+          const htmlContent = htmlToReactParser.parse(post.body);
+
           return (
-            <div key={post.id}>
+            <div className="mt-2 mb-2">
               <Accordion>
-                {title && (
-                  <Accordion.Toggle eventKey={post.id} as="div">
-                    <PostHeaderSection>{getEmojifiedTitle(title)}</PostHeaderSection>
+                <Card>
+                  <Accordion.Toggle style={{ textAlign: "left" }} eventKey={id}>
+                    {emojifiedTitle}
                   </Accordion.Toggle>
-                )}
-                <Accordion.Collapse eventKey={post.id} as="div">
-                  <div className="mt-3 mb-3">{htmlToReactParser.parse(body)}</div>
-                </Accordion.Collapse>
+                  <Accordion.Collapse eventKey={id}>
+                    <Card.Body>{htmlContent}</Card.Body>
+                  </Accordion.Collapse>
+                </Card>
               </Accordion>
             </div>
           );
