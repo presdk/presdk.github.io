@@ -1,22 +1,15 @@
-import styled from "styled-components";
 import React, { useState, useEffect, useCallback } from "react";
 import { GetPhotoPosts } from "../api/TumblrApi";
 import InfiniteScroll from "react-infinite-scroller";
 import Gallery from "react-photo-gallery";
+import LazyLoad from 'react-lazy-load';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   failedToLoadPosts,
   startLoadingPosts,
   addPosts,
 } from "../actions/posts";
-
-function getColumns(containerWidth) {
-  let columns = 1;
-  if (containerWidth >= 500) {
-    columns = 2;
-  }
-  return columns;
-}
+import Fade from "../animations/Fade"
 
 const PicturePostPage = (props) => {
   const NumPostsPerPage = 20;
@@ -82,7 +75,23 @@ const PicturePostPage = (props) => {
         photos={images}
         direction="column"
         margin={6}
-        columns={getColumns}
+        columns={2}
+        renderImage={(props) => {
+          const containerStyle = {
+            width: props.photo.width,
+            height: props.photo.height,
+            margin: props.margin
+          }
+          return (
+            <div style={containerStyle}>
+              <LazyLoad width={props.photo.width} height={props.photo.height}>
+                <Fade>
+                  <img {...props.photo} />
+                </Fade>
+              </LazyLoad>
+            </div>
+          );
+        }}
       />
     </InfiniteScroll>
   );
