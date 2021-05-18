@@ -4,6 +4,7 @@ import { GetPhotoPosts } from "../api/TumblrApi";
 import InfiniteScroll from "react-infinite-scroller";
 import Gallery from "react-photo-gallery";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import {
   failedToLoadPosts,
   startLoadingPosts,
@@ -83,6 +84,26 @@ const PicturePostPage = (props) => {
         direction="column"
         margin={6}
         columns={getColumns}
+        renderImage={(image) => {
+          const {key, src, width, height} = image.photo;
+          const imageStyle = {
+            display: 'block',
+            position: 'absolute',
+            margin: image.photo.margin,
+            left: image.left,
+            top: image.top
+          }
+          
+          return (
+            <LazyLoadImage
+              key={key}
+              style={imageStyle}
+              src={src}
+              width={width}
+              height={height}
+              effect="black-and-white" />
+          )
+        }}
       />
     </InfiniteScroll>
   );
