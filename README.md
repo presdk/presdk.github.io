@@ -1,4 +1,6 @@
-# presdk.github.io
+# https://presdk.github.io
+
+![Screenshot of page](https://i.imgur.com/0iuLj8P.png)
 
 SPA to display personal photos and notes.
 
