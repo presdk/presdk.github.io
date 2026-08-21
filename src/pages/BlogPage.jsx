@@ -21,18 +21,25 @@ const StyledBlogPage = styled.div`
   }
 `;
 
-const getEmojifiedTitle = (title) => {
-  if (!(title.includes('[') || title.includes(']'))) {
-    return title;
-  }
+const getEmojifiedTitle = ({title, summary}) => {
+  let targetSource = "";
 
-  const splitIndex = title.indexOf(']');
+  // post.title is now deprecated and replaced with post.summary
+  if (title.includes('[') && title.includes(']')) {
+    targetSource = title;
+  } else if (summary.includes('[') && summary.includes(']')) {
+    targetSource = summary;
+  } else {
+    return "Unknown title";
+  }
+  
+  const splitIndex = targetSource.indexOf(']');
   if (splitIndex == -1) {
-    return title;
+    return "Unknown title";
   }
 
-  const emojiKey = title.substring(0, splitIndex + 1);
-  const titleText = title.substring(splitIndex + 1).trim();
+  const emojiKey = targetSource.substring(0, splitIndex + 1);
+  const titleText = targetSource.substring(splitIndex + 1).trim();
 
   let emoji = "";
   switch (emojiKey) {
@@ -101,10 +108,10 @@ const BlogPage = (props) => {
         className="mt-3"
         style={{ overflow: "hidden" }}
       >
-        {textPosts.filter(post => post.title).map((post) => {
+        {textPosts.map((post) => {
           // Show posts with valid titles
           const { id } = post;
-          const emojifiedTitle = getEmojifiedTitle(post.title);
+          const emojifiedTitle = getEmojifiedTitle(post);
           const htmlContent = htmlToReactParser.parse(post.body);
 
           return (
